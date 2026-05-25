@@ -6,7 +6,7 @@ function Menu({ menuItems, loading, error }: MenuFetchState) {
 
   return (
     <div>
-      <h1>Menu</h1>
+      <h1>Matseðill</h1>
       <ul>
         {menuItems.map((item) => (
           <li key={item.id}>

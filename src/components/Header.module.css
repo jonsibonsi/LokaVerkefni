@@ -1,0 +1,75 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-2xl);
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  gap: var(--space-lg);
+}
+
+.nav a {
+  font-family: var(--font-body);
+  font-variation-settings: "wdth" 140;
+  color: var(--color-text);
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: clamp(0.7rem, 1vw, 0.9rem);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.logo:hover {
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+
+.ctaButtons {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  gap: var(--space-md);
+}
+
+.button {
+  display: inline-block;
+  border: 3px solid var(--color-text);
+  background: transparent;
+  color: var(--color-text);
+  padding: var(--space-sm) clamp(var(--space-md), 2vw, var(--space-xl));
+  font-family: var(--font-body);
+  font-variation-settings: "wdth" 140;
+  font-weight: 900;
+  font-size: clamp(0.7rem, 1vw, 0.9rem);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.button:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+}

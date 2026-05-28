@@ -1,13 +1,23 @@
-:root {
-  --color-bg: #fefae0;
-  --color-surface: #faedcd;
-  --color-surface-alt: #e9edc9;
-  --color-muted: #ccd5ae;
-  --color-accent: #d4a373;
-  --color-text: #2c2416;
+@font-face {
+  font-family: "Avenue Free";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/fonts/avenue-free.otf") format("opentype");
+}
 
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-heading: Georgia, "Times New Roman", serif;
+:root {
+  --color-bg: #f5ead5;
+  --color-surface: #fdf6e8;
+  --color-text: #1e2e52;
+  --color-text-muted: #8a7c70;
+  --color-accent: #c25450;
+  --color-border: #d9c9a8;
+
+  --font-body: "Roboto Flex Variable", system-ui, -apple-system, sans-serif;
+  --font-heading: "Fraunces Variable", Georgia, serif;
+  --font-display: "Avenue Free", "Fraunces Variable", Georgia, serif;
+  --font-settings: "SOFT" 100, "WONK" 1;
 
   --space-xs: 4px;
   --space-sm: 8px;
@@ -46,8 +56,13 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
+  font-variation-settings: var(--font-settings);
+  color: color-mix(in srgb, var(--color-text) 85%, transparent);
+  text-transform: uppercase;
   margin: 0;
   line-height: 1.2;
+  letter-spacing: 0.04em;
+  font-weight: 800;
 }
 
 p {
@@ -74,5 +89,3 @@ button {
   font: inherit;
   cursor: pointer;
 }
-
-

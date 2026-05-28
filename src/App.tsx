@@ -4,6 +4,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Menu from "./pages/Menu";
+import Locations from "./pages/Locations";
 import { useMenuItems } from "./Hooks/MenuItems";
 import "./App.css";
 
@@ -26,6 +27,7 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/locations" element={<Locations />} />
       </Routes>
     </>
   );

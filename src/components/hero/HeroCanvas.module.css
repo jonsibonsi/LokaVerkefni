@@ -1,0 +1,51 @@
+.container {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-bg);
+  z-index: 1;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transform: translateZ(0);
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-text);
+  pointer-events: none;
+}
+
+.scrollText {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-text);
+}
+
+/* Mobile: canvas fullt viewport. */
+
+@media (max-width: 1279px) {
+  .container {
+    aspect-ratio: auto;
+    width: 100vw;
+    height: 100vh;
+  }
+  .canvas {
+    object-fit: cover;
+  }
+}

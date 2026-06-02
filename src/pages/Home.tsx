@@ -1,29 +1,31 @@
-import type { MenuFetchState } from "../types";
-import styles from "./Home.module.css";
+import { useState, useEffect } from "react";
+import HeaderRow from "../components/header/HeaderRow";
+import Hero from "../components/hero/Hero";
+import Placeholder from "../components/Placeholder";
 
-function Home({ menuItems, loading, error }: MenuFetchState) {
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+function Home() {
+  const [isHeroExited, setIsHeroExited] = useState(false);
+
+  useEffect(() => {
+    if (!isHeroExited) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (window.scrollY === 0 && e.deltaY < 0) {
+        e.preventDefault();
+        setIsHeroExited(false);
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [isHeroExited]);
+
   return (
-    <div>
-      <div className={styles.heroWrapper}>
-        <section className={styles.hero}>
-          <span className={styles.line}>Nordic Bites</span>
-          <span className={`${styles.line} ${styles.hollow}`}>Nordic Bites</span>
-          <span className={`${styles.line} ${styles.hollow}`}>Nordic Bites</span>
-        </section>
-      </div>
-
-      <p>Velkomin á Nordic Bites!</p>
-      {menuItems.length > 0 && (
-        <div>
-          <h2>Matseðill</h2>
-          <h3>{menuItems[0].name}</h3>
-          <p>{menuItems[0].description}</p>
-          <p>{menuItems[0].price}</p>
-        </div>
-      )}
-    </div>
+    <>
+      <Placeholder />
+      <Hero isExited={isHeroExited} onExitChange={setIsHeroExited} />
+      {isHeroExited && <HeaderRow />}
+    </>
   );
 }
 

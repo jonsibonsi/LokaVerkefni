@@ -1,75 +1,37 @@
-# React + TypeScript + Vite
+# Nordic Bites
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript + Vite. Landing page for a fictional Icelandic late-night takeout restaurant.
 
-Currently, two official plugins are available:
+## Z-index stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Top-to-bottom layering across the home page. Update this table whenever a `z-index` is added or changed.
 
-## React Compiler
+| z-index | File / class | Role |
+|---|---|---|
+| `1001` | `header/HeaderRow.module.css` → `.drawer` | Mobile drawer panel (slide-in nav) |
+| `1000` | `header/HeaderRow.module.css` → `.backdrop` | Mobile drawer backdrop |
+| `20` | `hero/Hero.module.css` → `.hero` | The fixed hero overlay (the "door") |
+| `10` | `header/HeaderRow.module.css` → `.header` | Site-wide horizontal header (mounts after hero exits or on non-home routes) |
+| `2` | `hero/Hero.module.css` → `.bgLeft`, `.bgRight` | Cream backdrop pieces — ABOVE gutter content so expansion visibly covers it |
+| `1` | `hero/Hero.module.css` → `.leftGutter`, `.rightGutter` | Wrappers around `HeaderColumn` (left) and `HowToNordicBites` (right) |
+| `1` | `hero/HeroCanvas.module.css` → `.container` | Canvas in the middle grid column |
+| `auto` | `Placeholder` and other route pages | Normal document flow — sits beneath everything |
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+**Inside the hero stacking context** (which is `z-index: 20`), the relevant order is:
 
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+2  bg pieces       ← cover the gutters during expansion
+1  gutter content + canvas
+0  (nothing)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**The mobile drawer** (1000/1001) deliberately sits above the hero (20). It can be opened over any state.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**The site header `HeaderRow`** (10) is hidden behind the hero overlay (20) while the hero is in front. Once the hero exits and unmounts visually (still in the DOM but at `pointer-events: none` with all children transformed to zero), `HeaderRow` becomes the topmost visible element.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Setup
+
+```bash
+npm install
+npm run dev
 ```
